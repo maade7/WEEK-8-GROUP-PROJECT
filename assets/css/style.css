@@ -1,0 +1,13 @@
+    /*Global items*/
+* {
+  box-sizing: border-box;
+}
+
+body{
+	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+	font-size: 18px;
+	color: #777;
+	line-height: 34px;
+  background-color: #999966; 
+	background-image: url("../images/beer-background.jpg");
+}

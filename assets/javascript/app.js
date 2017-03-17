@@ -33,8 +33,8 @@ var Type = "";
 var Labels = "";
 var count = "";
 var rows = [""];
-var myImage = "http://clubsodafortwayne.com/wp-content/uploads/2013/03/02-13-Beer-List.jpg";
-
+// var myImage = "http://clubsodafortwayne.com/wp-content/uploads/2013/03/02-13-Beer-List.jpg";
+var myImage = "https://haginl1.github.io/WEEK-8-GROUP-PROJECT/assets/images/test.jpg";
 // converting image to text
 Tesseract.recognize(myImage)
     .progress(function(p) {

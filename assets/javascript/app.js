@@ -1,3 +1,4 @@
+
 // Initial Values
 var beerName = "";
 var beerArray = "";

@@ -16,8 +16,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<!-- ajax library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<!-- moment.js library -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+
 	<!-- firebase -->
 	<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
 	<!-- tesseract.js -->
@@ -62,13 +61,20 @@
 					<thead>
 						<tr>
 							<th>Name</th>
-							<th><button type="button" class="btn btn-info" id="Rating-btn">Rating</button></th>
-							<th><button type="button" class="btn btn-info" id="price-btn">price</button></th>
-							<th><button type="button" class="btn btn-info" id="Vintage-btn">Vintage</button></th>
+							<th><button type="button" class="btn btn-info" id="Rating-btn">Style</button></th>
+							<th><button type="button" class="btn btn-info" id="price-btn">Organic</button></th>
+							<th><button type="button" class="btn btn-info" id="Vintage-btn">abv</button></th>
 						</tr>
 					</thead>
 					<tbody>
 						<!-- wine list fronm JS goes here -->
+						<tr></tr>
+						<td>Winesville's Best Red</td>
+						<td>9/10</td>
+						<td>10-20</td>
+						<td>1960</td>
+						<td><button type="button" class="btn btn-warning btn-xs delete" id="firebaseKey">X</button></td>
+						<!-- /wine list fronm JS goes here -->
 					</tbody>
 				</table>
 			</div>

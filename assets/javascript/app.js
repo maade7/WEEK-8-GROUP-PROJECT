@@ -1,48 +1,27 @@
-//     // var authkey = "f675a8ca036d9e4f10c0cb3c5083be08";
-//     // var queryURL = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY";
-//     // "http://api.brewerydb.com/v2/locations/?p=" + curr_page.toString() + "&region=Illinois&key=481d514448fd7365873ba9501d928e10&format=json";
-var curr_page = 1;
-var beerName = "coors";
-var beerId = "avMkil";
-var key = "6c667709753ad53866207f52c01820c8";
-var beerNameURL = "http://api.brewerydb.com/v2/search?key=6c667709753ad53866207f52c01820c8&q=" + beerName;
-// var queryURL = "https://api.brewerydb.com/v2/locations/?p=" + curr_page.toString() + "&region=Georgia&key=" + key;
-var beerIdURL = "http://api.brewerydb.com/v2/beer/" + beerId + "?key=6c667709753ad53866207f52c01820c8";
-
-$.ajax({
-    url: beerIdURL,
-    cache: false,
-    method: 'GET'
-}).done(function(response) {
-    console.log(response);
-});
-
-
-
-
 // Initial Values
-
-var fbKey = "";
-var Name = "";
+var beerName = "";
+var beerArray = "";
+var key = "";
+var name = "";
 var style = "";
 var isOrganic = "";
 var abv = "";
-var Description = "";
-var Url = "";
-var Type = "";
-var Labels = "";
+var description = "";
+var url = "";
+var type = "";
+var labels = "";
 var count = "";
 var rows = [""];
 var myImage = "http://clubsodafortwayne.com/wp-content/uploads/2013/03/02-13-Beer-List.jpg";
 
 // converting image to text
-Tesseract.recognize(myImage)
-    .progress(function(p) {
-        console.log('progress', p)
-    })
-    .then(function(result) {
-        console.log('result', result)
-    })
+// Tesseract.recognize(myImage)
+//     .progress(function(p) {
+//         console.log('progress', p)
+//     })
+//     .then(function(result) {
+//         console.log('result', result)
+//     })
 
 // Initialize Firebase
 var config = {
@@ -55,31 +34,79 @@ var config = {
 firebase.initializeApp(config);
 
 
+// Capture Button Click
+$("#submit-btn").on("click", function(event) {
+    event.preventDefault();
+    // Grabbed values from text box
+    beerArray = $("#name-input").val().trim().split('\n');
+    // clear values from text boxes
+    $("#name-input").val("");
+    ajaxCall()
+});
 
+// //enter key
+// $("#inputField").keyup(function(event) {
+//     if (event.keyCode == 13) {
+//         $("#submit-btn").click();
+//     }
+// });
+
+// ajax call
+function ajaxCall() {
+    // for each beer in the list
+    for (var i = 0; i < beerArray.length; i++) {
+        beerName = beerArray[i];
+        // call the beer API
+        $.ajax({
+            url: "http://api.brewerydb.com/v2/search?key=6c667709753ad53866207f52c01820c8&q=" + beerName,
+            cache: false,
+            method: 'GET'
+        }).done(function(response) {
+            console.log(response);
+            var data = response.data;
+            // return only the first object that is a beer
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].type == "beer") {
+                    // Set variables
+                    name = data[i].name;
+                    style = data[i].style.shortName;
+                    isOrganic = data[i].isOrganic;
+                    abv = data[i].abv;
+                    description = data[i].description;
+                    labels = data[i].labels.icon;
+                    key = data[i].id;
+                    setHTML();
+                    break;
+                }
+            }
+            // $("tbody").empty();
+            $("tbody").append(rows);
+            rows = [""];
+            console.log(name);
+        });
+    }
+}
 
 function setHTML() {
-    // make Train array
-    var row = $("<tr>").attr("data-key", fbKey);
-    row.append($("<td>" + name + "</td>"))
+    // make beer row
+    var row = $("<tr>").attr("data-key", key);
+    row.append($('<td><a href="#' + key + 'info" class="btn btn-info" data-toggle="collapse">></td>'))
+        .append($("<td>" + name + "</td>"))
         .append($("<td>" + style + "</td>"))
         .append($("<td>" + isOrganic + "</td>"))
         .append($("<td>" + abv + "</td>"))
-        .append($('<button type="button" class="btn btn-warning btn-xs delete" id="' + fbKey + '">Delete</button>'));
-
+        .append($('<td><button type="button" class="btn btn-warning btn-xs delete" id="' + key + '">X</button></td>'))
+        .append($('<div id="' + key + 'info" class="collapse"><img src="' + labels + '"><br>' + description + '</div>'));
     rows.push(row);
 }
-// setHTML();
-// $("tbody").empty();
-// $("tbody").append(rows);
-// rows = [""];
 
-$(document).on("click", ".delete", removeWine);
 
-function removeWine() {
+
+$(document).on("click", ".delete", removeBeer);
+
+function removeBeer() {
     var deleteKey = $(this).attr("id");
-    // console.log($(this).attr("id"));
-    database.ref().child(deleteKey).remove();
-
-    // updateHTML();
-
+    $('tr[data-key="' + deleteKey + '"]').remove();
+    console.log($(this).attr("id"));
+    // database.ref().child(deleteKey).remove();
 }

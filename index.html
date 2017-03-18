@@ -16,10 +16,12 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<!-- ajax library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<!-- moment.js library -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+
 	<!-- firebase -->
 	<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
+	<!-- tesseract.js -->
+	<script src='https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js'></script>
+
 
 	<!-- My CSS -->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -29,14 +31,61 @@
 <body>
 	<div class="container">
 
+		<div class="jumbotron text-center">
+			<h1>Wine Snob</h1>
+			<p>...</p>
+		</div>
+
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">Add Wine</h3>
+			</div>
+			<div class="panel-body">
+				<form role="form">
+					<div class="form-group">
+						<label for="name-input">Wine Name</label>
+						<textarea class="form-control" id="name-input"></textarea>
+						<button type="button" class="btn btn-info" id="submit-btn">Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Wine List</h3>
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped table-hover ">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Name</th>
+							<th><button type="button" class="btn btn-info" id="style-btn">Style</button></th>
+							<th><button type="button" class="btn btn-info" id="isOrganic-btn">Organic</button></th>
+							<th><button type="button" class="btn btn-info" id="abv-btn">abv</button></th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- wine list fronm JS goes here -->
+						<tr>
+							<td>Winesville's Best Red</td>
+							<td>9/10</td>
+							<td>10-20</td>
+							<td>1960</td>
+							<td><button type="button" class="btn btn-warning btn-xs delete" id="firebaseKey">X</button></td><br>
+
+						</tr>
+						<!-- /wine list fronm JS goes here -->
+					</tbody>
+				</table>
+			</div>
+		</div>
+
 	</div>
 	<!-- JavaScript -->
 	<script type="text/javascript" src="assets/javascript/app.js"></script>
-</body>
-
-</html>
-src = "assets/javascript/app.js" >
-</script>
 </body>
 
 </html>

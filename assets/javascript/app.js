@@ -112,7 +112,7 @@ function favBeer() {
     var favBeerRow = $(this).attr("id");
 
     $.ajax({
-        url: "https://api.brewerydb.com/v2//beer/" + favBeerRow + "?key=6c667709753ad53866207f52c01820c8",
+        url: "https://api.brewerydb.com/v2/beer/" + favBeerRow + "?key=6c667709753ad53866207f52c01820c8",
         cache: false,
         method: 'GET'
     }).done(function(response) {
@@ -122,26 +122,27 @@ function favBeer() {
         for (var i = 0; i < data.length; i++) {
             if (data[i].type == "beer") {
                 // Set variables
-                name = data[i].name;
-                style = data[i].style.shortName;
-                isOrganic = data[i].isOrganic;
-                abv = data[i].abv;
-                description = data[i].description;
-                styleDescription = data[i].style.description;
-                labels = data[i].labels.icon;
-                beerID = data[i].id;
 
+                // add to firebase
+                database.ref().push({
+                    name: data[i].name,
+                    style: data[i].style.shortName,
+                    isOrganic: data[i].isOrganic,
+                    abv: data[i].abv,
+                    description: data[i].description,
+                    styleDescription: data[i].style.description,
+                    labels: data[i].labels.icon,
+                    beerID: data[i].id,
+
+                });
 
                 break;
             }
         }
 
     });
-    // add to firebase
-    database.ref().push({
-        favBeerRow: $('tr[id="' + favBeerRow + 'row"]'),
-        favBeerinfo: $('tr[id="' + favBeerRow + 'info"]')
-    });
+
+
 }
 
 $(document).on("click", ".delete", removeBeer);

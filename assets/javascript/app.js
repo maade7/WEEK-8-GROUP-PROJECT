@@ -91,7 +91,7 @@ function ajaxCall() {
 
 function setHTML() {
     // make beer row
-    var row = $("<tr>").attr("data-key", beerID);
+    var row = $('<tr id="' + beerID + 'row" >').attr("data-key", key);
     row.append($('<td><button type="button" class="btn btn-xs btn-success fav" id="' + beerID + '">★</button></td>'))
         .append($('<td><a href="#' + beerID + 'info" data-toggle="collapse">' + name + '</td>'))
         .append($("<td>" + style + "</td>"))
@@ -99,7 +99,7 @@ function setHTML() {
         .append($("<td>" + abv + "</td>"))
         .append($('<td><button type="button" class="btn btn-warning btn-xs delete" id="' + beerID + '">X</button></td>'))
     rows.push(row);
-    var info = $('<tr id="' + beerID + 'info" class="collapse">').attr("data-key", beerID);
+    var info = $('<tr id="' + beerID + 'info" class="collapse">').attr("data-key", key);
     info.append($('<td colspan=1><img src="' + labels + '"</td>'))
         .append($('<td colspan=6><p>' + description + '<br><br>' + styleDescription + '</p></td>'))
     rows.push(info);

@@ -36,7 +36,7 @@ var config = {
     messagingSenderId: "836948854327"
 };
 firebase.initializeApp(config);
-
+var database = firebase.database();
 
 // Capture Button Click
 $("#submit-btn").on("click", function(event) {
@@ -113,17 +113,47 @@ $(document).on("click", ".fav", favBeer);
 
 function favBeer() {
     var favBeerRow = $(this).attr("id");
-    // add to firebase
-    database.ref().push({
-        favBeerRow: $('tr[data-key="' + favBeerRow + '"]')
+
+    $.ajax({
+        url: "https://api.brewerydb.com/v2/beer/" + favBeerRow + "?key=6c667709753ad53866207f52c01820c8",
+        cache: false,
+        method: 'GET'
+    }).done(function(response) {
+        console.log("ID" + response);
+        var data = response.data;
+        // return only the first object that is a beer
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].type == "beer") {
+                // Set variables
+
+                // add to firebase
+                database.ref().push({
+                    name: data[i].name,
+                    style: data[i].style.shortName,
+                    isOrganic: data[i].isOrganic,
+                    abv: data[i].abv,
+                    description: data[i].description,
+                    styleDescription: data[i].style.description,
+                    labels: data[i].labels.icon,
+                    beerID: data[i].id,
+
+                });
+
+                break;
+            }
+        }
+
     });
+
+
 }
 
 $(document).on("click", ".delete", removeBeer);
 
 function removeBeer() {
     var deleteKey = $(this).attr("id");
-    $('tr[data-key="' + deleteKey + '"]').remove();
+    $('tr[id="' + deleteKey + 'row"]').remove();
+    $('tr[id="' + deleteKey + 'info"]').remove();
     console.log($(this).attr("id"));
     // database.ref().child(deleteKey).remove();
 }

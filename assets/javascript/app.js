@@ -33,7 +33,7 @@ var config = {
     messagingSenderId: "836948854327"
 };
 firebase.initializeApp(config);
-
+var database = firebase.database();
 
 // Capture Button Click
 $("#submit-btn").on("click", function(event) {
@@ -91,7 +91,7 @@ function ajaxCall() {
 
 function setHTML() {
     // make beer row
-    var row = $("<tr>").attr("data-key", beerID);
+    var row = $('<tr id="' + beerID + 'row" >').attr("data-key", key);
     row.append($('<td><button type="button" class="btn btn-xs btn-success fav" id="' + beerID + '">★</button></td>'))
         .append($('<td><a href="#' + beerID + 'info" data-toggle="collapse">' + name + '</td>'))
         .append($("<td>" + style + "</td>"))
@@ -99,7 +99,7 @@ function setHTML() {
         .append($("<td>" + abv + "</td>"))
         .append($('<td><button type="button" class="btn btn-warning btn-xs delete" id="' + beerID + '">X</button></td>'))
     rows.push(row);
-    var info = $('<tr id="' + beerID + 'info" class="collapse">').attr("data-key", beerID);
+    var info = $('<tr id="' + beerID + 'info" class="collapse">').attr("data-key", key);
     info.append($('<td colspan=1><img src="' + labels + '"</td>'))
         .append($('<td colspan=6><p>' + description + '<br><br>' + styleDescription + '</p></td>'))
     rows.push(info);
@@ -110,9 +110,37 @@ $(document).on("click", ".fav", favBeer);
 
 function favBeer() {
     var favBeerRow = $(this).attr("id");
+
+    $.ajax({
+        url: "https://api.brewerydb.com/v2//beer/" + favBeerRow + "?key=6c667709753ad53866207f52c01820c8",
+        cache: false,
+        method: 'GET'
+    }).done(function(response) {
+        console.log("ID" + response);
+        var data = response.data;
+        // return only the first object that is a beer
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].type == "beer") {
+                // Set variables
+                name = data[i].name;
+                style = data[i].style.shortName;
+                isOrganic = data[i].isOrganic;
+                abv = data[i].abv;
+                description = data[i].description;
+                styleDescription = data[i].style.description;
+                labels = data[i].labels.icon;
+                beerID = data[i].id;
+
+
+                break;
+            }
+        }
+
+    });
     // add to firebase
     database.ref().push({
-        favBeerRow: $('tr[data-key="' + favBeerRow + '"]')
+        favBeerRow: $('tr[id="' + favBeerRow + 'row"]'),
+        favBeerinfo: $('tr[id="' + favBeerRow + 'info"]')
     });
 }
 
@@ -120,7 +148,8 @@ $(document).on("click", ".delete", removeBeer);
 
 function removeBeer() {
     var deleteKey = $(this).attr("id");
-    $('tr[data-key="' + deleteKey + '"]').remove();
+    $('tr[id="' + deleteKey + 'row"]').remove();
+    $('tr[id="' + deleteKey + 'info"]').remove();
     console.log($(this).attr("id"));
     // database.ref().child(deleteKey).remove();
 }

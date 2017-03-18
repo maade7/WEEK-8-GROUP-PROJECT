@@ -1,6 +1,7 @@
 // Initial Values
 var beerName = "";
 var beerArray = "";
+var beerID = "";
 var key = "";
 var name = "";
 var style = "";
@@ -15,13 +16,13 @@ var rows = [""];
 var myImage = "http://clubsodafortwayne.com/wp-content/uploads/2013/03/02-13-Beer-List.jpg";
 
 // converting image to text
-Tesseract.recognize(myImage)
-    .progress(function(p) {
-        console.log('progress', p)
-    })
-    .then(function(result) {
-        console.log('result', result)
-    })
+// Tesseract.recognize(myImage)
+//     .progress(function(p) {
+//         console.log('progress', p)
+//     })
+//     .then(function(result) {
+//         console.log('result', result)
+//     })
 
 // Initialize Firebase
 var config = {
@@ -75,14 +76,13 @@ function ajaxCall() {
                     description = data[i].description;
                     styleDescription = data[i].style.description;
                     labels = data[i].labels.icon;
-                    key = data[i].id;
+                    beerID = data[i].id;
                     setHTML();
                     break;
                 }
             }
             // $("tbody").empty();
             $("tbody").append(rows);
-            console.log(rows);
             rows = [""];
             console.log(name);
         });
@@ -91,15 +91,15 @@ function ajaxCall() {
 
 function setHTML() {
     // make beer row
-    var row = $("<tr>").attr("data-key", key);
-    row.append($('<td><button type="button" class="btn btn-xs btn-success fav" >★</button></td>'))
-        .append($('<td><a href="#' + key + 'info" data-toggle="collapse">' + name + '</td>'))
+    var row = $("<tr>").attr("data-key", beerID);
+    row.append($('<td><button type="button" class="btn btn-xs btn-success fav" id="' + beerID + '">★</button></td>'))
+        .append($('<td><a href="#' + beerID + 'info" data-toggle="collapse">' + name + '</td>'))
         .append($("<td>" + style + "</td>"))
         .append($("<td>" + isOrganic + "</td>"))
         .append($("<td>" + abv + "</td>"))
-        .append($('<td><button type="button" class="btn btn-warning btn-xs delete" id="' + key + '">X</button></td>'))
+        .append($('<td><button type="button" class="btn btn-warning btn-xs delete" id="' + beerID + '">X</button></td>'))
     rows.push(row);
-    var info = $('<tr id="' + key + 'info" class="collapse">').attr("data-key", key);
+    var info = $('<tr id="' + beerID + 'info" class="collapse">').attr("data-key", beerID);
     info.append($('<td colspan=1><img src="' + labels + '"</td>'))
         .append($('<td colspan=6><p>' + description + '<br><br>' + styleDescription + '</p></td>'))
     rows.push(info);
@@ -109,9 +109,10 @@ function setHTML() {
 $(document).on("click", ".fav", favBeer);
 
 function favBeer() {
+    var favBeerRow = $(this).attr("id");
     // add to firebase
     database.ref().push({
-
+        favBeerRow: $('tr[data-key="' + favBeerRow + '"]')
     });
 }
 

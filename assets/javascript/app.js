@@ -14,7 +14,7 @@ var labels = "";
 var count = "";
 var rows = [""];
 var myImage = "http://clubsodafortwayne.com/wp-content/uploads/2013/03/02-13-Beer-List.jpg";
-
+//this is a test
 // converting image to text
 // Tesseract.recognize(myImage)
 //     .progress(function(p) {

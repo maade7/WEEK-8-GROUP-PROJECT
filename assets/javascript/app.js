@@ -13,9 +13,11 @@ var type = "";
 var labels = "";
 var count = "";
 var rows = [""];
-var myImage = "http://clubsodafortwayne.com/wp-content/uploads/2013/03/02-13-Beer-List.jpg";
-//this is a test again
+// var myImage = "http://clubsodafortwayne.com/wp-content/uploads/2013/03/02-13-Beer-List.jpg";
+var myImage = "";
+
 // converting image to text
+
 // Tesseract.recognize(myImage)
 //     .progress(function(p) {
 //         console.log('progress', p)
@@ -23,6 +25,7 @@ var myImage = "http://clubsodafortwayne.com/wp-content/uploads/2013/03/02-13-Bee
 //     .then(function(result) {
 //         console.log('result', result)
 //     })
+
 
 // Initialize Firebase
 var config = {

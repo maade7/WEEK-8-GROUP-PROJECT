@@ -15,13 +15,13 @@ var rows = [""];
 var myImage = "http://clubsodafortwayne.com/wp-content/uploads/2013/03/02-13-Beer-List.jpg";
 
 // converting image to text
-// Tesseract.recognize(myImage)
-//     .progress(function(p) {
-//         console.log('progress', p)
-//     })
-//     .then(function(result) {
-//         console.log('result', result)
-//     })
+Tesseract.recognize(myImage)
+    .progress(function(p) {
+        console.log('progress', p)
+    })
+    .then(function(result) {
+        console.log('result', result)
+    })
 
 // Initialize Firebase
 var config = {
@@ -40,7 +40,7 @@ $("#submit-btn").on("click", function(event) {
     // Grabbed values from text box
     beerArray = $("#name-input").val().trim().split('\n');
     // clear values from text boxes
-    $("#name-input").val("");
+    // $("#name-input").val("");
     ajaxCall()
 });
 
@@ -58,7 +58,7 @@ function ajaxCall() {
         beerName = beerArray[i];
         // call the beer API
         $.ajax({
-            url: "http://api.brewerydb.com/v2/search?key=6c667709753ad53866207f52c01820c8&q=" + beerName,
+            url: "https://api.brewerydb.com/v2/search?key=6c667709753ad53866207f52c01820c8&q=" + beerName,
             cache: false,
             method: 'GET'
         }).done(function(response) {
@@ -73,6 +73,7 @@ function ajaxCall() {
                     isOrganic = data[i].isOrganic;
                     abv = data[i].abv;
                     description = data[i].description;
+                    styleDescription = data[i].style.description;
                     labels = data[i].labels.icon;
                     key = data[i].id;
                     setHTML();
@@ -81,6 +82,7 @@ function ajaxCall() {
             }
             // $("tbody").empty();
             $("tbody").append(rows);
+            console.log(rows);
             rows = [""];
             console.log(name);
         });
@@ -90,17 +92,28 @@ function ajaxCall() {
 function setHTML() {
     // make beer row
     var row = $("<tr>").attr("data-key", key);
-    row.append($('<td><a href="#' + key + 'info" class="btn btn-info" data-toggle="collapse">></td>'))
-        .append($("<td>" + name + "</td>"))
+    row.append($('<td><button type="button" class="btn btn-xs btn-success fav" >★</button></td>'))
+        .append($('<td><a href="#' + key + 'info" data-toggle="collapse">' + name + '</td>'))
         .append($("<td>" + style + "</td>"))
         .append($("<td>" + isOrganic + "</td>"))
         .append($("<td>" + abv + "</td>"))
         .append($('<td><button type="button" class="btn btn-warning btn-xs delete" id="' + key + '">X</button></td>'))
-        .append($('<div id="' + key + 'info" class="collapse"><img src="' + labels + '"><br>' + description + '</div>'));
     rows.push(row);
+    var info = $('<tr id="' + key + 'info" class="collapse">').attr("data-key", key);
+    info.append($('<td colspan=1><img src="' + labels + '"</td>'))
+        .append($('<td colspan=6><p>' + description + '<br><br>' + styleDescription + '</p></td>'))
+    rows.push(info);
+
 }
 
+$(document).on("click", ".fav", favBeer);
 
+function favBeer() {
+    // add to firebase
+    database.ref().push({
+
+    });
+}
 
 $(document).on("click", ".delete", removeBeer);
 

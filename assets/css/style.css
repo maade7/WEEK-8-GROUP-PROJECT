@@ -1,0 +1,30 @@
+body {
+    background-image: url("../images/Beer-faq-bg-1500.jpg");
+    padding-top: 2rem;
+}
+
+.fav {
+    background-image: url();
+    background-color: #272B30;
+}
+
+.delete {
+    border-radius: 2rem;
+}
+
+[fav~="Y"] {
+    background-color: #f89406;
+}
+
+[fav~="N"] {
+    background-color: #272B30;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+textarea.form-control {
+    height: 38px;
+}

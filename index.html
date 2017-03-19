@@ -8,7 +8,8 @@
 	<!-- Reset CSS -->
 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 	<!-- Latest compiled and minified bootstrap CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/slate/bootstrap.min.css" rel="stylesheet" integrity="sha384-RpX8okQqCyUNG7PlOYNybyJXYTtGQH+7rIKiVvg1DLg6jahLEk47VvpUyS+E2/uJ" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -19,9 +20,11 @@
 
 	<!-- firebase -->
 	<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase-auth.js"></script>
 	<!-- tesseract.js -->
 	<script src='https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js'></script>
-
+	<!-- Viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=.6">
 
 	<!-- My CSS -->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -33,36 +36,40 @@
 
 
 
-		<div class="panel panel-info">
+		<div class="panel panel-warning">
 			<div class="panel-heading">
-				<h3 class="panel-title">Add Wine</h3>
+				<h1 class="text-default text-center">Beer Buddy</h1>
 			</div>
 			<div class="panel-body">
 				<form role="form">
 					<div class="form-group">
-						<label for="name-input">Wine Name</label>
+						<label for="name-input text-default">Add Beers</label>
 						<textarea class="form-control" id="name-input"></textarea>
-						<button type="button" class="btn btn-info" id="submit-btn">Submit</button>
+						<div class="btn-group btn-group-justified">
+							<a href="#" class="btn btn-default" id="photo-btn">Load Photo</a>
+							<a href="#" class="btn btn-warning" id="submit-btn">Submit</a>
+							<a href="#" class="btn btn-default" id="clear-btn">Clear</a>
+						</div>
 					</div>
 				</form>
 			</div>
 		</div>
 
 
-		<div class="panel panel-primary">
+		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">Wine List</h3>
+				<h3 class="panel-title text-warning">Beer List</h3>
 			</div>
 			<div class="panel-body">
 				<table class="table table-striped table-hover ">
 					<thead>
 						<tr>
-							<th><button type="button" class="btn btn-xs btn-info" id="favAll-btn">★</button></th>
-							<th><button type="button" class="btn btn-xs btn-info" id="name-btn">Name</button></th>
-							<th><button type="button" class="btn btn-xs btn-info" id="style-btn">Style</button></th>
-							<th><button type="button" class="btn btn-xs btn-info" id="isOrganic-btn">Organic</button></th>
-							<th><button type="button" class="btn btn-xs btn-info" id="abv-btn">abv</button></th>
-							<th><button type="button" class="btn btn-xs btn-info" id="deleteAll-btn">X</button></th>
+							<th><button type="button" class="btn btn-xs btn-default hidden" id="favAll-btn">★</button></th>
+							<th><button type="button" class="btn btn-xs btn-default" id="name-btn">Name</button></th>
+							<th><button type="button" class="btn btn-xs btn-default" id="style-btn">Style</button></th>
+							<th><button type="button" class="btn btn-xs btn-default" id="isOrganic-btn">Rating</button></th>
+							<th><button type="button" class="btn btn-xs btn-default" id="abv-btn">abv</button></th>
+							<th><button type="button" class="btn btn-xs btn-default" id="deleteAll-btn">X</button></th>
 						</tr>
 					</thead>
 					<tbody>

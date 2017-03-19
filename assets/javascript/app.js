@@ -17,8 +17,6 @@ var myImage = "http://clubsodafortwayne.com/wp-content/uploads/2013/03/02-13-Bee
 
 
 
-
-
 // converting image to text
 // Tesseract.recognize(myImage)
 //     .progress(function(p) {
@@ -28,6 +26,10 @@ var myImage = "http://clubsodafortwayne.com/wp-content/uploads/2013/03/02-13-Bee
 //         console.log('result', result)
 //     })
 
+
+
+
+// resize textarea
 $('textarea').on('paste input', function() {
     if ($(this).outerHeight() > this.scrollHeight) {
         $(this).height(1)
@@ -38,37 +40,12 @@ $('textarea').on('paste input', function() {
 });
 
 // Initialize Firebase
-
-// var config = {
-//     apiKey: "AIzaSyDdoqQmy6PZn0tlP33NvL83hClgelO1rkU",
-//     authDomain: "week-8-group-project.firebaseapp.com",
-//     databaseURL: "https://week-8-group-project.firebaseio.com",
-//     storageBucket: "week-8-group-project.appspot.com",
-//     messagingSenderId: "836948854327"
-// };
-// firebase.initializeApp(config);
 var database = firebase.database();
-// authenticate users
+var user = firebase.auth().currentUser;
 
-var provider = new firebase.auth.GoogleAuthProvider();
-firebase.auth().signInWithPopup(provider).then(function(result) {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    var token = result.credential.accessToken;
-    // The signed-in user info.
-    var user = result.user;
-    // ...
-}).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // The email of the user's account used.
-    var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    var credential = error.credential;
-    // ...
-});
-
-
+// show user's name
+$("#userName").text(user + 's beer list')
+console.log(user);
 
 // submit input box
 $("#submit-btn").on("click", function(event) {
@@ -157,7 +134,7 @@ function favBeer() {
             console.log(response);
             var data = response.data;
             // add to firebase
-            database.ref().child(favBeerRow).set({
+            database.ref().child(user + '/' + favBeerRow).set({
                 name: data.name,
                 style: data.style.shortName,
                 rating: rating,
@@ -178,7 +155,7 @@ function favBeer() {
 callFirebase()
 
 function callFirebase() {
-    database.ref().once("value", function(snapshot) {
+    database.ref().child(user).once("value", function(snapshot) {
             snapshot.forEach(function(childSnapshot) {
                 var childData = childSnapshot.val();
                 name = childData.name;

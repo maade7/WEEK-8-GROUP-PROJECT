@@ -1,37 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
-	<!-- Reset CSS -->
+	<title>Sign In</title>
 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 	<!-- Latest compiled and minified bootstrap CSS -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/slate/bootstrap.min.css" rel="stylesheet" integrity="sha384-RpX8okQqCyUNG7PlOYNybyJXYTtGQH+7rIKiVvg1DLg6jahLEk47VvpUyS+E2/uJ" crossorigin="anonymous">
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<!-- Latest compiled Bootstraap JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<!-- ajax library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-	<!-- firebase -->
-	<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase-auth.js"></script>
-	<!-- tesseract.js -->
-	<script src='https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js'></script>
 	<!-- Viewport -->
 	<meta name="viewport" content="width=device-width, initial-scale=.6">
 
 	<!-- My CSS -->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<!-- firebase -->
+	<script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyDdoqQmy6PZn0tlP33NvL83hClgelO1rkU",
+			authDomain: "week-8-group-project.firebaseapp.com",
+			databaseURL: "https://week-8-group-project.firebaseio.com",
+			storageBucket: "week-8-group-project.appspot.com",
+			messagingSenderId: "836948854327"
+		};
+		firebase.initializeApp(config);
+	</script>
+
+	<meta charset="UTF-8">
+	<title>Sample FirebaseUI App</title>
+	<!-- *******************************************************************************************
+       * TODO(DEVELOPER): Paste the initialization snippet from:
+       * Firebase Console > Overview > Add Firebase to your web app. *
+       ***************************************************************************************** -->
+	<script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
+	<script type="text/javascript">
+		// FirebaseUI config.
+		var uiConfig = {
+			signInSuccessUrl: 'beerB.html',
+			signInOptions: [
+				// Leave the lines as is for the providers you want to offer your users.
+				firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+				// firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+				// firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+				// firebase.auth.GithubAuthProvider.PROVIDER_ID,
+				firebase.auth.EmailAuthProvider.PROVIDER_ID
+			],
+			// Terms of service url.
+			tosUrl: '<your-tos-url>'
+		};
+
+		// Initialize the FirebaseUI Widget using Firebase.
+		var ui = new firebaseui.auth.AuthUI(firebase.auth());
+		// The start method will wait until the DOM is loaded.
+		ui.start('#firebaseui-auth-container', uiConfig);
+	</script>
 
 </head>
 
 <body>
+	<!-- The surrounding HTML is left untouched by FirebaseUI.
+         Your app may use that space for branding, controls and other customizations.-->
+
 	<div class="container">
 
 
@@ -41,51 +72,10 @@
 				<h1 class="text-default text-center">Beer Buddy</h1>
 			</div>
 			<div class="panel-body">
-				<form role="form">
-					<div class="form-group">
-						<label for="name-input text-default">Add Beers</label>
-						<textarea class="form-control" id="name-input"></textarea>
-						<div class="btn-group btn-group-justified">
-							<a href="#" class="btn btn-default" id="photo-btn">Load Photo</a>
-							<a href="#" class="btn btn-warning" id="submit-btn">Submit</a>
-							<a href="#" class="btn btn-default" id="clear-btn">Clear</a>
-						</div>
-					</div>
-				</form>
+				<div id="firebaseui-auth-container"></div>
 			</div>
 		</div>
-
-
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title text-warning">Beer List</h3>
-			</div>
-			<div class="panel-body">
-				<table class="table table-striped table-hover ">
-					<thead>
-						<tr>
-							<th><button type="button" class="btn btn-xs btn-default hidden" id="favAll-btn">★</button></th>
-							<th><button type="button" class="btn btn-xs btn-default" id="name-btn">Name</button></th>
-							<th><button type="button" class="btn btn-xs btn-default" id="style-btn">Style</button></th>
-							<th><button type="button" class="btn btn-xs btn-default" id="isOrganic-btn">Rating</button></th>
-							<th><button type="button" class="btn btn-xs btn-default" id="abv-btn">abv</button></th>
-							<th><button type="button" class="btn btn-xs btn-default" id="deleteAll-btn">X</button></th>
-						</tr>
-					</thead>
-					<tbody>
-						<!-- wine list fronm JS goes here -->
-
-
-
-						<!-- /wine list fronm JS goes here -->
-					</tbody>
-				</table>
-			</div>
-		</div>
-
 	</div>
-	<!-- JavaScript -->
-	<script type="text/javascript" src="assets/javascript/app.js"></script>
 </body>
 
 </html>

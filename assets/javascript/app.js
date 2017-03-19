@@ -15,24 +15,7 @@ var count = "";
 var rows = [""];
 var myImage = "http://clubsodafortwayne.com/wp-content/uploads/2013/03/02-13-Beer-List.jpg";
 
-// authenticate users
-var provider = new firebase.auth.GoogleAuthProvider();
-firebase.auth().signInWithPopup(provider).then(function(result) {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    var token = result.credential.accessToken;
-    // The signed-in user info.
-    var user = result.user;
-    // ...
-}).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // The email of the user's account used.
-    var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    var credential = error.credential;
-    // ...
-});
+
 
 
 
@@ -55,16 +38,18 @@ $('textarea').on('paste input', function() {
 });
 
 // Initialize Firebase
-var config = {
-    apiKey: "AIzaSyDdoqQmy6PZn0tlP33NvL83hClgelO1rkU",
-    authDomain: "week-8-group-project.firebaseapp.com",
-    databaseURL: "https://week-8-group-project.firebaseio.com",
-    storageBucket: "week-8-group-project.appspot.com",
-    messagingSenderId: "836948854327"
-};
-firebase.initializeApp(config);
+
+// var config = {
+//     apiKey: "AIzaSyDdoqQmy6PZn0tlP33NvL83hClgelO1rkU",
+//     authDomain: "week-8-group-project.firebaseapp.com",
+//     databaseURL: "https://week-8-group-project.firebaseio.com",
+//     storageBucket: "week-8-group-project.appspot.com",
+//     messagingSenderId: "836948854327"
+// };
+// firebase.initializeApp(config);
 var database = firebase.database();
 // authenticate users
+
 var provider = new firebase.auth.GoogleAuthProvider();
 firebase.auth().signInWithPopup(provider).then(function(result) {
     // This gives you a Google Access Token. You can use it to access the Google API.
@@ -82,6 +67,7 @@ firebase.auth().signInWithPopup(provider).then(function(result) {
     var credential = error.credential;
     // ...
 });
+
 
 
 // submit input box

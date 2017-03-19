@@ -17,7 +17,11 @@ var myImage = "http://clubsodafortwayne.com/wp-content/uploads/2013/03/02-13-Bee
 
 
 
+
+
+
 // converting image to text
+
 // Tesseract.recognize(myImage)
 //     .progress(function(p) {
 //         console.log('progress', p)
@@ -25,7 +29,6 @@ var myImage = "http://clubsodafortwayne.com/wp-content/uploads/2013/03/02-13-Bee
 //     .then(function(result) {
 //         console.log('result', result)
 //     })
-
 
 
 
@@ -38,6 +41,7 @@ $('textarea').on('paste input', function() {
         $(this).height($(this).height() + 1)
     }
 });
+
 
 // Initialize Firebase
 var database = firebase.database();

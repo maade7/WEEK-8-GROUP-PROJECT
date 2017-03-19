@@ -230,3 +230,4 @@ $("#deleteAll-btn").on("click", function(event) {
     $("tbody").empty();
     callFirebase()
 });
+

@@ -13,12 +13,8 @@ var type = "";
 var labels = "";
 var count = "";
 var rows = [""];
-<<<<<<< HEAD
-// var myImage = "http://clubsodafortwayne.com/wp-content/uploads/2013/03/02-13-Beer-List.jpg";
-var myImage = "";
-=======
+
 var myImage = "http://clubsodafortwayne.com/wp-content/uploads/2013/03/02-13-Beer-List.jpg";
->>>>>>> 96ae8869d6c9e2c92300bbf66c4a6a9c2e82f181
 
 // converting image to text
 
@@ -30,8 +26,7 @@ var myImage = "http://clubsodafortwayne.com/wp-content/uploads/2013/03/02-13-Bee
 //         console.log('result', result)
 //     })
 
-<<<<<<< HEAD
-=======
+
 $('textarea').on('paste input', function() {
     if ($(this).outerHeight() > this.scrollHeight) {
         $(this).height(1)
@@ -40,7 +35,7 @@ $('textarea').on('paste input', function() {
         $(this).height($(this).height() + 1)
     }
 });
->>>>>>> 96ae8869d6c9e2c92300bbf66c4a6a9c2e82f181
+
 
 // Initialize Firebase
 

@@ -85,6 +85,7 @@ var providerData = "";
             })
             .then(function(result) {
                 console.log('result', result)
+                $("#name-input").val(result);
             })
         reader.onload = function(e) {
             img.src = e.target.result;

@@ -26,8 +26,6 @@ var providerData = "";
 
 
 
-// converting image to text
-
 (function() {
     var canvas = document.getElementById("dropMy-canvas"),
         context = canvas.getContext("2d"),
@@ -97,11 +95,10 @@ var providerData = "";
         reader.readAsDataURL(file);
     })
 })();
+
 //convert image to text//
 
 
-// CORS request
-// $.get(url: 'https://api.brewerydb.com/v2').done successFn;
 
 
 
@@ -304,5 +301,3 @@ $("#deleteAll-btn").on("click", function(event) {
     $("tbody").empty();
     callFirebase()
 });
-
-// master function ***

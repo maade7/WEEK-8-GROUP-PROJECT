@@ -3,7 +3,7 @@ body {
     padding-top: 2rem;
 }
 
-text {
+.firebaseui-subtitle, .firebaseui-title {
     color: black;
 }
 

@@ -57,8 +57,11 @@ textarea.form-control {
     }
 }
 
-#dropMain-content {
-	overflow: hidden;
+#dropMain-content #dropMy-canvas{
+  border: solid 1px white;  
+  width: 50%;
+  height: 25%;
+  overflow: hidden;
 }
 
 /*end drop zone css*/

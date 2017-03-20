@@ -30,7 +30,10 @@ var myImage = "http://clubsodafortwayne.com/wp-content/uploads/2013/03/02-13-Bee
 //     .then(function(result) {
 //         console.log('result', result)
 //     })
+//make the canvas responsive
 
+
+//end responsive canvas
 
 
 
@@ -223,6 +226,20 @@ firebase.auth().onAuthStateChanged((user) => {
             $("tbody").empty();
             callFirebase()
         });
+
+        //image camera capture
+
+        var myInput = document.getElementById('photo-btn');
+
+            function sendPic() {
+                var file = myInput.files[0];
+
+                // Send file here either by adding it to a `FormData` object 
+                // and sending that via XHR, or by simply passing the file into 
+                // the `send` method of an XHR instance.
+            }
+
+            myInput.addEventListener('change', sendPic, false);
 
         // master function ***
     }

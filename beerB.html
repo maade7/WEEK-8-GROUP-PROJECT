@@ -9,7 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 	<!-- Latest compiled and minified bootstrap CSS -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/slate/bootstrap.min.css" rel="stylesheet" integrity="sha384-RpX8okQqCyUNG7PlOYNybyJXYTtGQH+7rIKiVvg1DLg6jahLEk47VvpUyS+E2/uJ" crossorigin="anonymous">
-	
+
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<!-- Latest compiled Bootstraap JavaScript -->
@@ -52,92 +52,92 @@
 			<div class="panel-body">
 				<form role="form">
 					<div class="form-group">
-<!--drag and drop section here-->
-	<div id="dropContainer">
-		<header role="banner">
-			<h1>Beer Me!</h1>
-		</header>
-				
-		<div role="dropMain">
-			<section id="dropMain-content">
-				<canvas id="dropMy-canvas"  ></canvas>
-				<script>
-					(function () {
-						var canvas = document.getElementById("dropMy-canvas"),
-							context = canvas.getContext("2d"),
-							img = document.createElement("img"),
-							mouseDown = false,
-			
-							hasText = true,
-							clearCanvas = function () {
-								if (hasText) {
-									context.clearRect(0, 0, canvas.width, canvas.height);
-									hasText = false;
-								}
-							};
-							
-						// Adding instructions
-						context.fillText("Drop an image onto the canvas", 250, 100);
-						
-						// Image for loading	
-						img.addEventListener("load", function () {
-							clearCanvas();
-							context.drawImage(img, 0, 0);
-						}, false);
+						<!--drag and drop section here-->
+						<div id="dropContainer">
+							<header role="banner">
+								<h1>Beer Me!</h1>
+							</header>
 
-						// To enable drag and drop
-						canvas.addEventListener("dragover", function (evt) {
-							evt.preventDefault();
-						}, false);
+							<div role="dropMain">
+								<section id="dropMain-content">
+									<canvas id="dropMy-canvas"></canvas>
+									<!-- <script>
+										(function() {
+											var canvas = document.getElementById("dropMy-canvas"),
+												context = canvas.getContext("2d"),
+												img = document.createElement("img"),
+												mouseDown = false,
 
-						// Handle dropped image file - only Firefox and Google Chrome
-						canvas.addEventListener("drop", function (evt) {
-							var files = evt.dataTransfer.files;
-							if (files.length > 0) {
-								var file = files[0];
-								if (typeof FileReader !== "undefined" && file.type.indexOf("image") != -1) {
-									var reader = new FileReader();
-									// Note: addEventListener doesn't work in Google Chrome for this event
-									reader.onload = function (evt) {
-										img.src = evt.target.result;
-									};
-									reader.readAsDataURL(file);
-								}
-							}
-							evt.preventDefault();
-						}, false);
-					
-					
-					var language = 'eng'
-					document.body.addEventListener('drop', function(e){
-						e.stopPropagation();
-						e.preventDefault();
-						var file = e.dataTransfer.files[0]
-						var reader = new FileReader();
+												hasText = true,
+												clearCanvas = function() {
+													if (hasText) {
+														context.clearRect(0, 0, canvas.width, canvas.height);
+														hasText = false;
+													}
+												};
 
-						Tesseract.recognize(file, language)
-							.progress(function(p) {
-							console.log('progress', p)
-							})
-							.then(function(result) {
-							console.log('result', result)
-							})
-						reader.onload = function(e){
-							img.src = e.target.result;
-								img.onload = function(){
-							
-							}
-						}
-						reader.readAsDataURL(file);
-					})
-					})();
+											// Adding instructions
+											context.fillText("Drop an image onto the canvas", 250, 100);
 
-					//convert image to text//
-				</script>
-			</section>
-		</div>
-	</div>
-<!--end drag and drop section-->
+											// Image for loading
+											img.addEventListener("load", function() {
+												clearCanvas();
+												context.drawImage(img, 0, 0);
+											}, false);
+
+											// To enable drag and drop
+											canvas.addEventListener("dragover", function(evt) {
+												evt.preventDefault();
+											}, false);
+
+											// Handle dropped image file - only Firefox and Google Chrome
+											canvas.addEventListener("drop", function(evt) {
+												var files = evt.dataTransfer.files;
+												if (files.length > 0) {
+													var file = files[0];
+													if (typeof FileReader !== "undefined" && file.type.indexOf("image") != -1) {
+														var reader = new FileReader();
+														// Note: addEventListener doesn't work in Google Chrome for this event
+														reader.onload = function(evt) {
+															img.src = evt.target.result;
+														};
+														reader.readAsDataURL(file);
+													}
+												}
+												evt.preventDefault();
+											}, false);
+
+
+											var language = 'eng'
+											document.body.addEventListener('drop', function(e) {
+												e.stopPropagation();
+												e.preventDefault();
+												var file = e.dataTransfer.files[0]
+												var reader = new FileReader();
+
+												Tesseract.recognize(file, language)
+													.progress(function(p) {
+														console.log('progress', p)
+													})
+													.then(function(result) {
+														console.log('result', result)
+													})
+												reader.onload = function(e) {
+													img.src = e.target.result;
+													img.onload = function() {
+
+													}
+												}
+												reader.readAsDataURL(file);
+											})
+										})();
+
+										//convert image to text//
+									</script> -->
+								</section>
+							</div>
+						</div>
+						<!--end drag and drop section-->
 						<label for="name-input text-default">Add Beers</label>
 						<textarea class="form-control" id="name-input"></textarea>
 						<div class="btn-group btn-group-justified">
@@ -147,9 +147,9 @@
 						</div>
 						<!--///workign area for image Capture on phone-->
 						<div>
-						<input id="myFileInput" type="file" accept="image/*;capture=camera">
+							<input id="myFileInput" type="file" accept="image/*;capture=camera">
 						</div>
-				<!--///end image capture working area-->
+						<!--///end image capture working area-->
 					</div>
 				</form>
 			</div>

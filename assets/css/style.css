@@ -1,6 +1,10 @@
 body {
     background-image: url("../images/Beer-faq-bg-1500.jpg");
     padding-top: 2rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    background-attachment: fixed;
 }
 
 .firebaseui-subtitle, .firebaseui-title {
@@ -30,24 +34,29 @@ img {
 }
 
 textarea.form-control {
-    height: 38px;
+    height: auto;
 }
+
+
 /*adding in drop zone css here*/
+
+
 /* Structure */
+
 #dropContainer {
-	width: 760px;
-	min-height: 250px;
-	background: #fff;
-	border: 1px solid #ccc;
-	border-top: none;
-	margin: 20px auto;
-	padding: 20px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	-moz-box-shadow: 1px 1px 10px #000;
-	-webkit-box-shadow: 1px 1px 5px #000;
-	box-shadow: 1px 1px 10px #000;
+    width: 760px;
+    min-height: 250px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    margin: 20px auto;
+    padding: 20px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: 1px 1px 10px #000;
+    -webkit-box-shadow: 1px 1px 5px #000;
+    box-shadow: 1px 1px 10px #000;
 }
 
 @media screen and (max-width: 320px) {
@@ -57,11 +66,9 @@ textarea.form-control {
     }
 }
 
-#dropMain-content #dropMy-canvas{
-  border: solid 1px white;  
-  width: 50%;
-  height: 25%;
-  overflow: hidden;
+#dropMain-content {
+    overflow: hidden;
 }
+
 
 /*end drop zone css*/

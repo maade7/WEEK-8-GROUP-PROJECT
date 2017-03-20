@@ -3,6 +3,10 @@ body {
     padding-top: 2rem;
 }
 
+.firebaseui-subtitle, .firebaseui-title {
+    color: black;
+}
+
 .fav {
     background-image: url();
     background-color: #272B30;

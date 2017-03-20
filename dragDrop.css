@@ -167,7 +167,7 @@ tr.even {
 
 
 /* Structure */
-#container {
+#dropContainer {
 	width: 760px;
 	min-height: 250px;
 	background: #fff;
@@ -184,13 +184,13 @@ tr.even {
 }
 
 @media screen and (max-width: 320px) {
-    #container {
+    #dropContainer {
         width: 280px;
         padding: 10px;
     }
 }
 
-#main-content {
+#dropMain-content {
 	overflow: hidden;
 }
 

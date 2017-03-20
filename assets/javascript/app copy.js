@@ -75,10 +75,13 @@ firebase.auth().onAuthStateChanged((user) => {
                     beerID = childData.beerID;
 
                     setHTML();
-                    // Change the HTML to reflect
-                    $("tbody").append(rows);
-
                 });
+                // Change the HTML to reflect
+                $("tbody").append(rows);
+                rows = [""];
+                fav = "N";
+                rating = "-";
+                note = "";
             },
             // Handle the errors
             function(errorObject) {
@@ -106,10 +109,6 @@ function resizeTextarea() {
 // submit input box
 $("#submit-btn").on("click", function(event) {
     event.preventDefault();
-    rows = [""];
-    fav = "N";
-    rating = "-";
-    note = "";
     // Grabbed values from text box
     beerArray = $("#name-input").val().trim().split('\n');
     ajaxCall()
@@ -180,7 +179,7 @@ $(document).on("click", ".fav", favBeer);
 function favBeer() {
     var favBeerRow = $(this).attr("id");
     if ($(this).attr("fav") == "Y") {
-        database.ref().child(uid + '/' + favBeerRow).remove();
+        database.ref().child(user.uid + '/' + favBeerRow).remove();
         $(this).attr("fav", "N");
     } else {
         $(this).attr("fav", "Y");
@@ -195,7 +194,7 @@ function favBeer() {
             console.log(response);
             var data = response.data;
             // add to firebase
-            database.ref().child(uid + '/' + favBeerRow).set({
+            database.ref().child(user.uid + '/' + favBeerRow).set({
                 name: data.name,
                 style: data.style.shortName,
                 rating: rating,

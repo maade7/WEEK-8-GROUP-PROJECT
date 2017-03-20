@@ -28,15 +28,80 @@ var providerData = "";
 
 // converting image to text
 
-// Tesseract.recognize(myImage)
-//     .progress(function(p) {
-//         console.log('progress', p)
-//     })
-//     .then(function(result) {
-//         console.log('result', result)
-//     })
+(function() {
+    var canvas = document.getElementById("dropMy-canvas"),
+        context = canvas.getContext("2d"),
+        img = document.createElement("img"),
+        mouseDown = false,
+        brushColor = "rgb(0, 0, 0)",
+        hasText = true,
+        clearCanvas = function() {
+            if (hasText) {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                hasText = false;
+            }
+        };
+
+    // Adding instructions
+    context.fillText("Drop an image onto the canvas", 250, 100);
+
+    // Image for loading
+    img.addEventListener("load", function() {
+        clearCanvas();
+        context.drawImage(img, 0, 0);
+    }, false);
+
+    // To enable drag and drop
+    canvas.addEventListener("dragover", function(evt) {
+        evt.preventDefault();
+    }, false);
+
+    // Handle dropped image file - only Firefox and Google Chrome
+    canvas.addEventListener("drop", function(evt) {
+        var files = evt.dataTransfer.files;
+        if (files.length > 0) {
+            var file = files[0];
+            if (typeof FileReader !== "undefined" && file.type.indexOf("image") != -1) {
+                var reader = new FileReader();
+                // Note: addEventListener doesn't work in Google Chrome for this event
+                reader.onload = function(evt) {
+                    img.src = evt.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        evt.preventDefault();
+    }, false);
 
 
+    var language = 'eng'
+    document.body.addEventListener('drop', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var file = e.dataTransfer.files[0]
+        var reader = new FileReader();
+
+        Tesseract.recognize(file, language)
+            .progress(function(p) {
+                console.log('progress', p)
+            })
+            .then(function(result) {
+                console.log('result', result)
+            })
+        reader.onload = function(e) {
+            img.src = e.target.result;
+            img.onload = function() {
+
+            }
+        }
+        reader.readAsDataURL(file);
+    })
+})();
+//convert image to text//
+
+
+// CORS request
+// $.get(url: 'https://api.brewerydb.com/v2').done successFn;
 
 
 

@@ -14,6 +14,7 @@ var type = "";
 var labels = "";
 var count = "";
 var rows = [""];
+var progress = "0%";
 // user info
 var displayName = "";
 var email = "";
@@ -22,12 +23,16 @@ var photoURL = "";
 var uid = "";
 var providerData = "";
 
+
 // click hidden image import button
 $("#photo-btn").on("click", function() {
     $("#myFileInput").trigger("click");
 });
 
 // Tesseract convert image to text
+
+$(".progress").hide();
+
 function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -36,13 +41,18 @@ function readURL(input) {
             // $('#blah').attr('src', e.target.result);
             // console.log(e.target.result);
             Tesseract.recognize(e.target.result)
-                // .progress(function(p) {
-                //     console.log('progress', p)
-                // })
+                .progress(function(p) {
+                    console.log('progress', p)
+                    progress = (p.progress * 100);
+                    $(".progress").show();
+                    $("#progress").attr("style", "width:" + progress + "%");
+                    console.log(progress);
+                })
                 .then(function(result) {
                     console.log('result', result);
                     $("#name-input").val(result.text);
-
+                    $(".progress").hide();
+                    $('#name-input').trigger('input');
                 })
         }
         reader.readAsDataURL(input.files[0]);
@@ -50,11 +60,30 @@ function readURL(input) {
 }
 $("#myFileInput").change(function() {
     readURL(this);
+
 });
 
 
+// resize textarea
+$(document).on("paste input", ".form-control", resizeTextarea);
+
+function resizeTextarea() {
+    if ($(this).outerHeight() > this.scrollHeight) {
+        $(this).height(1)
+    }
+    while ($(this).outerHeight() < this.scrollHeight + parseFloat($(this).css("borderTopWidth")) + parseFloat($(this).css("borderBottomWidth"))) {
+        $(this).height($(this).height() + 1)
+    }
+}
 
 
+
+
+// clear input box
+$("#clear-btn").on("click", function(event) {
+    $("#name-input").val("");
+    $("#name-input").height('20px');
+});
 
 
 
@@ -108,20 +137,6 @@ firebase.auth().onAuthStateChanged((user) => {
     console.log(uid);
 });
 
-
-// resize textarea
-$(document).on("paste input", ".form-control", resizeTextarea);
-
-function resizeTextarea() {
-    if ($(this).outerHeight() > this.scrollHeight) {
-        $(this).height(1)
-    }
-    while ($(this).outerHeight() < this.scrollHeight + parseFloat($(this).css("borderTopWidth")) + parseFloat($(this).css("borderBottomWidth"))) {
-        $(this).height($(this).height() + 1)
-    }
-}
-
-
 // submit input box
 $("#submit-btn").on("click", function(event) {
     event.preventDefault();
@@ -134,11 +149,6 @@ $("#submit-btn").on("click", function(event) {
     ajaxCall()
 });
 
-// clear input box
-$("#clear-btn").on("click", function(event) {
-    $("#name-input").val("");
-    $("#name-input").height('20px');
-});
 
 // ajax call
 function ajaxCall() {
@@ -258,3 +268,73 @@ $("#deleteAll-btn").on("click", function(event) {
     $("tbody").empty();
     callFirebase()
 });
+
+
+
+
+// sorting
+var sorted;
+
+function sortBeer() {
+    myBeers.sort(function(a, b) {
+        if (sorted !== "asc") {
+            return a.name > b.name;
+        } else {
+            return b.name > a.name;
+        }
+    });
+    if (sorted !== "asc") {
+        sorted = "asc";
+    } else {
+        sorted = "desc";
+    }
+    setHTML();
+}
+
+function sortStyle() {
+    myBeers.sort(function(a, b) {
+        if (sorted !== "asc") {
+            return a.style > b.style;
+        } else {
+            return b.style > a.style;
+        }
+    });
+    if (sorted !== "asc") {
+        sorted = "asc";
+    } else {
+        sorted = "desc";
+    }
+    setHTML();
+}
+
+function sortRating() {
+    myBeers.sort(function(a, b) {
+        if (sorted !== "asc") {
+            return a.isOrganic > b.isOrganic;
+        } else {
+            return b.isOrganic > a.isOrganic;
+        }
+    });
+    if (sorted !== "asc") {
+        sorted = "asc";
+    } else {
+        sorted = "desc";
+    }
+    setHTML();
+}
+
+function sortAlcohol() {
+    myBeers.sort(function(a, b) {
+        if (sorted !== "asc") {
+            return a.abv > b.abv;
+        } else {
+            return b.abv > a.abv;
+        }
+    });
+    if (sorted !== "asc") {
+        sorted = "asc";
+    } else {
+        sorted = "desc";
+    }
+    setHTML();
+}

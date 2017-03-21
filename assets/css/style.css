@@ -34,41 +34,7 @@ img {
 }
 
 textarea.form-control {
-    height: auto;
-}
-
-
-/*adding in drop zone css here*/
-
-
-/* Structure */
-
-#dropContainer {
-    width: 760px;
-    min-height: 250px;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-top: none;
-    margin: 20px auto;
-    padding: 20px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    -moz-box-shadow: 1px 1px 10px #000;
-    -webkit-box-shadow: 1px 1px 5px #000;
-    box-shadow: 1px 1px 10px #000;
-}
-
-@media screen and (max-width: 320px) {
-    #dropContainer {
-        width: 280px;
-        padding: 10px;
-    }
-}
-
-#dropMain-content {
+    height: 38px;
     overflow: hidden;
+    outline: none;
 }
-
-
-/*end drop zone css*/

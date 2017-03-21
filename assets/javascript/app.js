@@ -112,14 +112,34 @@ firebase.auth().onAuthStateChanged((user) => {
                 snapshot.forEach(function(childSnapshot) {
                     var childData = childSnapshot.val();
                     name = childData.name;
-                    style = childData.style;
+                    if (typeof childData.style != "undefined") {
+                        style = childData.style;
+                    } else {
+                        style = "";
+                    }
                     rating = childData.rating;
                     fav = childData.fav;
                     note = childData.note;
-                    abv = childData.abv;
-                    description = childData.description;
-                    styleDescription = childData.styleDescription;
-                    labels = childData.labels;
+                    if (typeof childData.abv != "undefined") {
+                        abv = childData.abv;
+                    } else {
+                        abv = "";
+                    }
+                    if (typeof childData.description != "undefined") {
+                        description = childData.description;
+                    } else {
+                        description = "";
+                    }
+                    if (typeof childData.styleDescription != "undefined") {
+                        styleDescription = childData.styleDescription;
+                    } else {
+                        styleDescription = "";
+                    }
+                    if (typeof childData.labels != "undefined") {
+                        labels = childData.labels;
+                    } else {
+                        labels = "../images/beer-background.jpg";
+                    }
                     beerID = childData.beerID;
 
                     setHTML();
@@ -168,11 +188,27 @@ function ajaxCall() {
                 if (data[i].type == "beer") {
                     // Set variables
                     name = data[i].name;
-                    style = data[i].style.shortName;
-                    abv = data[i].abv;
-                    description = data[i].description;
+                    if (typeof data[i].style.shortName != "undefined") {
+                        style = data[i].style.shortName;
+                    } else {
+                        style = "";
+                    }
+                    if (typeof data[i].abv != "undefined") {
+                        abv = data[i].abv;
+                    } else {
+                        abv = "";
+                    }
+                    if (typeof data[i].description != "undefined") {
+                        description = data[i].description;
+                    } else {
+                        description = "";
+                    }
                     styleDescription = data[i].style.description;
-                    labels = data[i].labels.medium;
+                    if (typeof data[i].labels.medium != "undefined") {
+                        labels = data[i].labels.medium;
+                    } else {
+                        labels = "../images/beer-background.jpg";
+                    }
                     beerID = data[i].id;
                     setHTML();
                     break;
@@ -180,7 +216,7 @@ function ajaxCall() {
             }
             $("tbody").append(rows);
             rows = [""];
-            console.log(name);
+            console.log(name + i);
         });
     }
 }
@@ -190,13 +226,13 @@ function setHTML() {
     // make beer row
     var row = $('<tr id="' + beerID + 'row" rating="' + rating + '">');
     row.append($('<td><button type="button" class="btn btn-xs btn-warning fav" fav="' + fav + '" id="' + beerID + '">★</button></td>'))
-        .append($('<td><a href="#' + beerID + 'info" data-toggle="collapse">' + name + '</td>'))
+        .append($('<td><a href="#' + beerID + 'info" data-parent="#accordion" data-toggle="collapse">' + name + '</td>'))
         .append($('<td>' + style + '</td>'))
         .append($('<td><div class="btn-group"><button type="button" class="btn btn-xs btn-default selection" >' + rating + '</button><button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu"><li><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li><a href="#">6</a></li><li><a href="#">7</a></li><li><a href="#">8</a></li><li><a href="#">9</a></li><li><a href="#">10</a></li></ul></div></td>'))
         .append($('<td>' + abv + '</td>'))
         .append($('<td><button type="button" class="btn btn-danger btn-xs delete" id="' + beerID + '">X</button></td>'))
     rows.push(row);
-    var info = $('<tr id="' + beerID + 'info" class="collapse">');
+    var info = $('<tr id="' + beerID + 'info" class="panel-collapse collapse">');
     info.append($('<td colspan=6><div class="row"><div class="col-xs-4"><img src="' + labels + '"></div><div class="col-xs-8"><p>' + description + '<br><br>' + styleDescription + '</p><textarea class="form-control" id="' + beerID + 'note">' + note + '</textarea></div></div></td>'))
 
     rows.push(info);

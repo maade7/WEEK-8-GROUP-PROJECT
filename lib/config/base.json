@@ -1,0 +1,21 @@
+{
+  "port": 1337,
+  "proxies": [
+    {
+      "pathname": "yelp",
+      "target": "https://api.yelp.com"
+    },
+    {
+      "pathname": "food2fork",
+      "target": "http://food2fork.com/api"
+    },
+    {
+      "pathname": "flightstats",
+      "target": "https://api.flightstats.com/flex/flightstatus/rest/v2/json"
+    },
+    {
+      "pathname": "brewerydb",
+      "target": "https://api.brewerydb.com"
+    }
+  ]
+}

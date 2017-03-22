@@ -82,13 +82,23 @@
 			</div>
 			<div class="panel-body">
 				<table class="table table-striped table-hover ">
-					<thead>
+					<!--<thead>
 						<tr>
 							<th><button type="button" class="btn btn-xs btn-default hidden" id="favAll-btn">★</button></th>
 							<th><button type="button" class="btn btn-xs btn-default" id="name-btn">Name</button></th>
 							<th><button type="button" class="btn btn-xs btn-default" id="style-btn">Style</button></th>
 							<th><button type="button" class="btn btn-xs btn-default" id="rating-btn">Rating</button></th>
 							<th><button type="button" class="btn btn-xs btn-default" id="abv-btn">abv</button></th>
+							<th><button type="button" class="btn btn-xs btn-default" id="deleteAll-btn">X</button></th>
+						</tr>
+					</thead>-->
+					<thead>
+						<tr>
+							<th><button type="button" class="btn btn-xs btn-default hidden" id="favAll-btn">★</button></th>
+							<th onclick="sortBeer()"><button type="button" class="btn btn-xs btn-default" id="name-btn">Name</button></th>
+							<th onclick="sortStyle()"><button type="button" class="btn btn-xs btn-default" id="style-btn">Style</button></th>
+							<th onclick="sortRating()"><button type="button" class="btn btn-xs btn-default" id="rating-btn">Rating</button></th>
+							<th onclick="sortAlcohol()"><button type="button" class="btn btn-xs btn-default" id="abv-btn">abv</button></th>
 							<th><button type="button" class="btn btn-xs btn-default" id="deleteAll-btn">X</button></th>
 						</tr>
 					</thead>

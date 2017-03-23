@@ -34,6 +34,7 @@ img {
 }
 
 .map {
+    display: block;
     height: 256px;
     width: 256px;
     max-width: 100%;
